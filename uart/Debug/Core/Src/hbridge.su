@@ -1,0 +1,4 @@
+hbridge.c:12:8:new_motor	40	static
+hbridge.c:24:6:start	16	static
+hbridge.c:33:6:set_speed	64	static
+hbridge.c:46:6:receive_hbridge_cmd	40	static

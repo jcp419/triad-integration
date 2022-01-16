@@ -1,0 +1,3 @@
+mosfet.c:33:6:enablePin	24	static
+mosfet.c:42:6:receive_mosfet_cmd	40	static
+mosfet.c:62:6:send_rr_drop	40	static
