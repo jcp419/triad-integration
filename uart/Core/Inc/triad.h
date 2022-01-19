@@ -13,10 +13,9 @@
 #include "mux.h"
 
 
-static HAL_StatusTypeDef ret;
-uint8_t buf[30];
+uint8_t buf_triad[30];
 
-Bus *i2cBus;
+SMBus *i2cBus;
 
 typedef struct {
 	uint8_t dev_register;
@@ -24,18 +23,22 @@ typedef struct {
 } Device;
 
 
-Device *triad_dev_1 = NULL;
+Device *triad_dev_1;
 
-Device *triad_dev_2 = NULL;
+Device *triad_dev_2;
 
-Device *triad_dev_3 = NULL;
+Device *triad_dev_3;
 
-Device *triad[3] = NULL;
+Device *triad[3];
 
 // Function prototypes
 
 uint16_t get_decimal(uint8_t virtual_reg_l, uint8_t virtual_reg_h);
 Device* new_device(uint8_t dev_register);
+uint8_t virtual_read(uint8_t v_reg);
+void virtual_write(uint8_t v_reg, uint8_t data);
+Channel* new_channel(uint8_t lsb_r, uint8_t msb_r);
+
 
 #endif
 

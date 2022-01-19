@@ -63,7 +63,7 @@ int main_preloop(){
 
 #ifdef TRIAD_ENABLE
 
-	i2cBus = new_bus(&hi2c2, &huart2);
+	i2cBus = new_smbus(&hi2c1, &huart1);
 
 	uint8_t buf[30];
 

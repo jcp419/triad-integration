@@ -104,9 +104,9 @@ int main_loop(){
 		  channel->color_data = get_decimal(channel->lsb_register, channel->msb_register);
 
 		  //complicated way to print "channel {x} : {data}"
-		  sprintf((char*)buf , "channel %u : %f \r\n", (unsigned int)((i*CHANNELS) + j), (float)channel->color_data);
+		  sprintf((char*)buf_triad , "channel %u : %f \r\n", (unsigned int)((i*CHANNELS) + j), (float)channel->color_data);
 
-		  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
+		  HAL_UART_Transmit(&huart1, buf_triad, strlen((char*)buf_triad), HAL_MAX_DELAY);
 		  HAL_Delay(10);
 	  }
 	}
