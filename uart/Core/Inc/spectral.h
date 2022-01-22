@@ -110,7 +110,7 @@ extern enum {
 extern int spectral_channels[SPECTRAL_DEVICES];
 extern SMBus *i2cBus;
 extern Spectral *spectral;
-extern uint8_t *buf_spectral[60];
+extern uint8_t *buf[60];
 extern uint16_t spectral_data[SPECTRAL_DEVICES * CHANNELS];
 extern Mux *mux;
 #endif

@@ -1,0 +1,6 @@
+thermistor.c:25:14:newThermistors	104	static
+thermistor.c:58:7:getTemp	48	static
+thermistor.c:95:6:deleteThermistors	16	static
+thermistor.c:99:6:send_thermistor_data	112	static
+thermistor.c:123:6:ADC_Enable_CH	40	static
+thermistor.c:148:10:_readVoltage	24	static

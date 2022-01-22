@@ -51,9 +51,11 @@ extern UART_HandleTypeDef huart1;
 // Debugging UART through usb connection
 extern UART_HandleTypeDef huart2;
 
-extern HBRIDGE_TIMER;
+//TODO DURING HBRIDGE DEV
+//extern HBRIDGE_TIMER;
 
-extern I2C_HandleTypeDef hi2c1;
+extern ADC_HandleTypeDef hadc1;
+extern I2C_HandleTypeDef hi2c2;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -94,6 +96,8 @@ void Error_Handler(void);
 #define THERMISTOR_0_GPIO_Port GPIOA
 #define HBRIDGE_PWM_Pin GPIO_PIN_6
 #define HBRIDGE_PWM_GPIO_Port GPIOA
+#define MUX_SCL_Pin GPIO_PIN_7
+#define MUX_SCL_GPIO_Port GPIOA
 #define WHITE_LED_Pin GPIO_PIN_10
 #define WHITE_LED_GPIO_Port GPIOB
 #define UV_BULB_Pin GPIO_PIN_11
@@ -102,8 +106,10 @@ void Error_Handler(void);
 #define RAMAN_LASER_GPIO_Port GPIOB
 #define NICHROME_WIRE_0_Pin GPIO_PIN_13
 #define NICHROME_WIRE_0_GPIO_Port GPIOB
-#define SERVO_PWM___Pin GPIO_PIN_8
-#define SERVO_PWM___GPIO_Port GPIOA
+#define MUX_SDA_Pin GPIO_PIN_14
+#define MUX_SDA_GPIO_Port GPIOB
+#define SERVO_PWM_0_Pin GPIO_PIN_8
+#define SERVO_PWM_0_GPIO_Port GPIOA
 #define JETSON_UART_TX_Pin GPIO_PIN_9
 #define JETSON_UART_TX_GPIO_Port GPIOA
 #define HBRIDGE_FWD_Pin GPIO_PIN_7
@@ -128,10 +134,6 @@ void Error_Handler(void);
 #define AUTON_LED_0_GPIO_Port GPIOB
 #define SERVO_PWM_2_Pin GPIO_PIN_6
 #define SERVO_PWM_2_GPIO_Port GPIOB
-#define MUX_SCL_Pin GPIO_PIN_7
-#define MUX_SCL_GPIO_Port GPIOB
-#define MUX_SDA_Pin GPIO_PIN_8
-#define MUX_SDA_GPIO_Port GPIOB
 #define AUTON_LED_2_AND_UV_LED_Pin GPIO_PIN_9
 #define AUTON_LED_2_AND_UV_LED_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */

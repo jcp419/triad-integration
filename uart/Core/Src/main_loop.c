@@ -12,6 +12,11 @@
 // Extern Vars
 extern char* mosfetcopy;
 extern char* servocopy;
+extern uint8_t buf_triad[30];
+extern SMBus *i2cBus;
+extern Device *triad[3];
+
+#define JETSON_UART &huart2
 
 int main_loop(){
 
@@ -53,16 +58,18 @@ int main_loop(){
 #endif
 
 #ifdef SERVO_ENABLE
-	int angle = -1;
-	int servo_device = -1;
+	int angle0 = -1;
+	int angle1 = -1;
+	int angle2 = -1;
 	if(message[1] == 'S')
 	{
-		receive_servo_cmd(message,&servo_device,&angle,servocopy);
+		receive_servo_cmd(message,&angle0,&angle1,&angle2,servocopy);
 	}
 
-	int d_s = servo_device;
 
-	write_angle(angle, d_s);
+	write_angle(angle0, 0);
+	write_angle(angle1, 1);
+	write_angle(angle2, 2);
 
 	clear_flags();
 #endif
@@ -70,17 +77,13 @@ int main_loop(){
 
 
 #ifdef SPECTRAL_ENABLE
-	i2cBus = new_smbus(&hi2c1, USB_UART);
-	i2cBus->DMA = 0;
-	mux = new_mux(i2cBus);
-	spectral = new_spectral(i2cBus);
 
 	for (int i = 0; i < SPECTRAL_DEVICES; ++i) {
 		  channel_select(mux, mux->channel_list[spectral_channels[i]]);
 		  get_spectral_data(spectral, spectral_data + (i * CHANNELS));
 		}
 
-		send_spectral_data(spectral_data, JETSON_UART);
+		send_spectral_data(spectral_data, &huart2);
 		//send_spectral_data(spectral_data, USB_UART);
 #endif
 
@@ -112,5 +115,6 @@ int main_loop(){
 	}
 	HAL_Delay(1000);
 #endif
+
 	return 0;
 }

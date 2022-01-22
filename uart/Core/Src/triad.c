@@ -2,6 +2,10 @@
 
 #include "triad.h"
 
+uint8_t buf_triad[30];
+SMBus *i2cBus;
+Device *triad[3];
+
 uint16_t get_decimal(uint8_t virtual_reg_l, uint8_t virtual_reg_h) {
 	uint16_t high = virtual_read(virtual_reg_h) << 8;
 	return high | (virtual_read(virtual_reg_l) & 0xFF);

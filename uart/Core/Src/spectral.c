@@ -8,7 +8,7 @@
 int spectral_channels[SPECTRAL_DEVICES] = { SPECTRAL_0_CHANNEL, SPECTRAL_1_CHANNEL, SPECTRAL_2_CHANNEL };
 SMBus *i2cBus;
 Spectral *spectral;
-
+uint16_t spectral_data[SPECTRAL_DEVICES * CHANNELS];
 Mux *mux;
 
 //transmits the spectral data as a sentance

@@ -14,6 +14,6 @@
 
 extern char*servocopy;
 void write_angle(int angle, int servo_num);
-void receive_servo_cmd(uint8_t *buffer, int *servo_device, int*angle, char*servocopy);
+void receive_servo_cmd(uint8_t *buffer, int *angle0, int *angle1, int *angle2, char*servocopy);
 
 #endif /* INC_SERVO_H_ */

@@ -11,20 +11,15 @@
 
 #define JETSON_UART &huart2
 
-
-// Extern Vars
-
-
-
 int main_preloop(){
 	HAL_UART_Receive_DMA(JETSON_UART,Rx_data,20);
 #ifdef THERMISTOR_ENABLE
-	thermistors = new_thermistors(&hadc2, &hadc3, &hadc4);
+	thermistors = newThermistors(ADC_CHANNEL_3, ADC_CHANNEL_4, ADC_CHANNEL_5);
 #endif
 
 #ifdef MOSFET_ENABLE
   // Enable pin
-	// e
+
   // sci UV
   // enablePin(0, UV_BULB_GPIO_Port, UV_BULB_Pin);
   // sa UV
@@ -36,7 +31,7 @@ int main_preloop(){
 #endif
 
 #ifdef SPECTRAL_ENABLE
-   	i2cBus = new_smbus(&hi2c1, USB_UART);
+   	i2cBus = new_smbus(&hi2c2, &huart2);
 	i2cBus->DMA = 0;
 	mux = new_mux(i2cBus);
 	spectral = new_spectral(i2cBus);
@@ -62,25 +57,17 @@ int main_preloop(){
 #endif
 
 #ifdef TRIAD_ENABLE
+	i2cBus = new_smbus(&hi2c2, &huart2);
 
-	i2cBus = new_smbus(&hi2c1, &huart1);
-
-	uint8_t buf[30];
-
-	triad_dev_1 = new_device(0x00);
-
-	triad_dev_2 = new_device(0x01);
-
-	triad_dev_3 = new_device(0x02);
-
-	triad[0] = triad_dev_1;
-	triad[1] = triad_dev_2;
-	triad[2] = triad_dev_3;
+	triad[0] = new_device(0x00);
+	triad[1] = new_device(0x01);
+	triad[2] = new_device(0x02);
 
 	virtual_write(0x04, 0x28);
 	virtual_write(0x04, 0x28);
 	virtual_write(0x05, 0xFF);
 
 #endif
+
 	return 0;
 }

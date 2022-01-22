@@ -1,5 +1,3 @@
-//#ifdef TRIAD_ENABLE
-
 #ifndef TRIAD_H_
 #define TRIAD_H_
 
@@ -12,24 +10,14 @@
 #include "stm32g0xx_hal.h"
 #include "mux.h"
 
-
-uint8_t buf_triad[30];
-
-SMBus *i2cBus;
-
 typedef struct {
 	uint8_t dev_register;
 	Channel *channels[CHANNELS];
 } Device;
 
-
-Device *triad_dev_1;
-
-Device *triad_dev_2;
-
-Device *triad_dev_3;
-
-Device *triad[3];
+extern uint8_t buf_triad[30];
+extern SMBus *i2cBus;
+extern Device *triad[3];
 
 // Function prototypes
 

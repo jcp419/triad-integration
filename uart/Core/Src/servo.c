@@ -22,7 +22,7 @@ void write_angle(int angle, int servo_num){
 
 char*servocopy;
 
-void receive_servo_cmd(uint8_t *buffer, int *servo_device, int*angle, char*servocopy){
+void receive_servo_cmd(uint8_t *buffer, int *angle0, int *angle1, int *angle2, char*servocopy){
 
   //Change to string
   char delim[] = ",";
@@ -33,10 +33,11 @@ void receive_servo_cmd(uint8_t *buffer, int *servo_device, int*angle, char*servo
   	return;
   }
 
-  //Expected $Servo,<devicenum>,<angle>
+  //Expected $Servo,<angle0>,<angle1>,<angle2>
   char *identifier = strtok(servocopy,delim);
   if (!strcmp(identifier,"$Servo")){
-	  *servo_device = atoi(strtok(NULL,delim));
-	  *angle = atoi(strtok(NULL,delim));
+	  *angle0 = atoi(strtok(NULL,delim));
+	  *angle1 = atoi(strtok(NULL,delim));
+	  *angle2 = atoi(strtok(NULL,delim));
   }
 }

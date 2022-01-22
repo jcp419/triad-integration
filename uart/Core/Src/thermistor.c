@@ -7,7 +7,6 @@
 //
 //////////////////////////////////////
 //#define THERMISTOR_ENABLE
-#ifdef THERMISTOR_ENABLE
 
 #include "thermistor.h"
 
@@ -23,7 +22,7 @@ float currTemps[3];
 ///////////////////
 
 
-Thermistors* newThermistors(ADC_HandleTypeDef* adc0, ADC_HandleTypeDef* adc1, ADC_HandleTypeDef* adc2){
+Thermistors* newThermistors(uint32_t channel0, uint32_t channel1, uint32_t channel2){
     Thermistors* therms = (Thermistors*) malloc(sizeof(Thermistors));
 
     float tempConstArray[4][4] = {{3.3570420E-03, 2.5214848E-04, 3.3743283E-06, -6.4957311E-08},
@@ -44,8 +43,12 @@ Thermistors* newThermistors(ADC_HandleTypeDef* adc0, ADC_HandleTypeDef* adc1, AD
 
     therms->R25 = 10000;
 
-    therms->adcPins[0] = adc0; therms->adcPins[1] = adc1; therms->adcPins[2] = adc2;
+    therms->adcPins[0] = channel0; therms->adcPins[1] = channel1; therms->adcPins[2] = channel2;
 
+    // Disable all channels, restart when you want to read
+    ADC_Enable_CH(channel0, 0);
+    ADC_Enable_CH(channel1, 0);
+    ADC_Enable_CH(channel2, 0);
     return therms;
 }
 
@@ -54,7 +57,10 @@ Thermistors* newThermistors(ADC_HandleTypeDef* adc0, ADC_HandleTypeDef* adc1, AD
 
 float getTemp(const uint8_t whichTherm, const Thermistors* therms){
     
-    uint32_t rawData = _readVoltage(therms->adcPins[whichTherm]);
+    //Before reading voltage, enable only the selected channel
+
+	uint32_t rawData = _readVoltage(therms->adcPins[whichTherm]);
+
 
     // Logic to get actual Voltage from 12 bit string
     // NOTE pretty sure it is 12 bit that's what HAL says in documentation, but could be wrong
@@ -92,10 +98,10 @@ void deleteThermistors(Thermistors* thermistors){
 
 void send_thermistor_data(Thermistors* therms, UART_HandleTypeDef* huart){
   for(int t = 0; t < 3; t++){
-    currTemps[t] = get_temp(t, therms);
+    currTemps[t] = getTemp(t, therms);
   }
 
-  char string[50] = "";
+  char string[50] = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
   sprintf((char *)string, "$THERMISTOR,%f,%f,%f,\n", currTemps[0], currTemps[2], currTemps[1]);
   //HAL_UART_Transmit(huart, (uint8_t *)string, sizeof(string), 15);
@@ -113,14 +119,38 @@ void send_thermistor_data(Thermistors* therms, UART_HandleTypeDef* huart){
 // Private Functions
 //
 ///////////////////
+//Selects and Disables all other
+void ADC_Enable_CH (uint32_t adcChannel, int enable)
+{
+	ADC_ChannelConfTypeDef sConfig = {0};
+	  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+	  */
+	if (enable){
+		sConfig.Channel = adcChannel;
+			  sConfig.Rank = 1;
+			  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+			  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+			  {
+				Error_Handler();
+			  }
+	}
+	else{
+		sConfig.Channel = adcChannel;
+		sConfig.Rank = ADC_RANK_NONE;
+		if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+		  {
+			Error_Handler();
+		  }
+	}
 
-
-uint32_t _readVoltage(ADC_HandleTypeDef* adcObject){
-	HAL_ADC_Start(adcObject);
-	HAL_ADC_PollForConversion(adcObject, HAL_MAX_DELAY);
-    uint32_t raw = HAL_ADC_GetValue(adcObject);
-    HAL_ADC_Stop(adcObject);
-    return raw;
 }
 
-#endif
+uint32_t _readVoltage(uint32_t adcChannel){
+	ADC_Enable_CH(adcChannel, 1);
+	HAL_ADC_Start(&hadc1);
+	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+    uint32_t raw = HAL_ADC_GetValue(&hadc1);
+    HAL_ADC_Stop(&hadc1);
+    ADC_Enable_CH(adcChannel, 0);
+    return raw;
+}

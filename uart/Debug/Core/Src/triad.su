@@ -1,5 +1,5 @@
-triad.c:5:10:get_decimal	32	static
-triad.c:10:9:new_device	40	static
-triad.c:22:9:virtual_read	24	static
-triad.c:65:6:virtual_write	24	static
-triad.c:93:10:new_channel	24	static
+triad.c:9:10:get_decimal	32	static
+triad.c:14:9:new_device	40	static
+triad.c:26:9:virtual_read	24	static
+triad.c:69:6:virtual_write	24	static
+triad.c:97:10:new_channel	24	static
