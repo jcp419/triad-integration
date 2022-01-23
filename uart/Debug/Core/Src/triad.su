@@ -1,5 +1,6 @@
-triad.c:9:10:get_decimal	32	static
-triad.c:14:9:new_device	40	static
-triad.c:26:9:virtual_read	24	static
-triad.c:69:6:virtual_write	24	static
-triad.c:97:10:new_channel	24	static
+triad.c:11:10:get_decimal	32	static
+triad.c:16:9:new_device	40	static
+triad.c:28:9:virtual_read	24	static
+triad.c:71:6:virtual_write	24	static
+triad.c:99:10:new_channel	24	static
+triad.c:109:6:send_triad_data	624	static

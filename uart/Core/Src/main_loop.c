@@ -108,14 +108,14 @@ int main_loop(){
 	  for (uint8_t j = 0; j < CHANNELS; ++j) {
 		  channel = triad[i]->channels[j];
 		  channel->color_data = get_decimal(channel->lsb_register, channel->msb_register);
+		  // less complicated way
+		  triad_data[(i*CHANNELS) + j] = channel->color_data;
 
-		  //complicated way to print "channel {x} : {data}"
-		  sprintf((char*)buf_triad , "channel %u : %f \r\n", (unsigned int)((i*CHANNELS) + j), (float)channel->color_data);
-
-		  HAL_UART_Transmit_IT(&huart2, buf_triad, strlen((char*)buf_triad));
 		  HAL_Delay(10);
 	  }
 	}
+	send_triad_data(triad_data, &huart2);
+
 	HAL_Delay(1000);
 #endif
 

@@ -27,6 +27,7 @@ uint8_t virtual_read(uint8_t v_reg);
 void virtual_write(uint8_t v_reg, uint8_t data);
 Channel* new_channel(uint8_t lsb_r, uint8_t msb_r);
 
+extern uint16_t triad_data[18];
 
 #endif
 

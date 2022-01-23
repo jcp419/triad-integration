@@ -11,7 +11,7 @@ Spectral *spectral;
 uint16_t spectral_data[SPECTRAL_DEVICES * CHANNELS];
 Mux *mux;
 
-//transmits the spectral data as a sentance
+//transmits the spectral data as a sentence
 //$SPECTRAL,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,
 void send_spectral_data(uint16_t *data, UART_HandleTypeDef * huart){
 	int channels = 6;
