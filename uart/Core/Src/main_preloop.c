@@ -61,12 +61,14 @@ int main_preloop(){
 
 #ifdef TRIAD_ENABLE
 
-//	add_channel(mux, SPECTRAL_DEVICES);
-//	channel_select(mux, mux->channel_list[SPECTRAL_DEVICES]);
+// KEEP COMMENTED IF SINGLE SPECTRALS ARE ENABLED
+// UNCOMMENT FOR TESTING TRIAD ALONE
+//	for (int i = 0; i < SPECTRAL_DEVICES; ++i) {
+//		add_channel(mux, spectral_channels[i]);
+//	}
 
-	// TODO: Don't harcode 0 in here
-	add_channel(mux, 0);
-	channel_select(mux, mux->channel_list[0]);
+	add_channel(mux, SPECTRAL_DEVICES);
+	channel_select(mux, mux->channel_list[SPECTRAL_DEVICES]);
 
 
 	triad[0] = new_device(0x00);

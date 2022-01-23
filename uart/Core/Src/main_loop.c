@@ -100,8 +100,7 @@ int main_loop(){
 	// HAL_Delay(500);
 	Channel *channel = new_channel(0, 0);
 
-	// TODO: Don't hardcode the 0 here
-	channel_select(mux, mux->channel_list[0]);
+	channel_select(mux, mux->channel_list[SPECTRAL_DEVICES]);
 
 	for (uint8_t i = 0; i < 3; ++i) {
 	  virtual_write(DEV_SEL, triad[i]->dev_register);
