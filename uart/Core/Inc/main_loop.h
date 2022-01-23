@@ -23,6 +23,7 @@
 //#define SPECTRAL_ENABLE
 //#define HBRIDGE_MOTOR_ENABLE
 #define TRIAD_ENABLE
+#define MUX_ENABLE
 
 int main_loop();
 

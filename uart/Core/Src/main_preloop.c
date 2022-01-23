@@ -30,11 +30,14 @@ int main_preloop(){
   mosfetcopy = (char *)malloc(21);
 #endif
 
+#ifdef MUX_ENABLE
+  	i2cBus = new_smbus(&hi2c2, &huart2);
+  	i2cBus->DMA = 0;
+  	mux = new_mux(i2cBus);
+#endif
+
 #ifdef SPECTRAL_ENABLE
-   	i2cBus = new_smbus(&hi2c2, &huart2);
-	i2cBus->DMA = 0;
-	mux = new_mux(i2cBus);
-	spectral = new_spectral(i2cBus);
+  	spectral = new_spectral(i2cBus);
 
 	// adds all the spectral channels
 	for (int i = 0; i < SPECTRAL_DEVICES; ++i) {
@@ -58,6 +61,8 @@ int main_preloop(){
 
 #ifdef TRIAD_ENABLE
 	i2cBus = new_smbus(&hi2c2, &huart2);
+
+	disable_DMA(i2cBus);
 
 	triad[0] = new_device(0x00);
 	triad[1] = new_device(0x01);

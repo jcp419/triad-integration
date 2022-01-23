@@ -109,6 +109,7 @@ NVIC.NonMaskableInt_IRQn=true\:0\:0\:false\:false\:true\:false\:false
 NVIC.PendSV_IRQn=true\:0\:0\:false\:false\:true\:false\:false
 NVIC.SVC_IRQn=true\:0\:0\:false\:false\:true\:false\:false
 NVIC.SysTick_IRQn=true\:0\:0\:false\:false\:true\:false\:true
+NVIC.USART2_LPUART2_IRQn=true\:0\:0\:false\:false\:true\:true\:true
 PA0.GPIOParameters=GPIO_Label
 PA0.GPIO_Label=LIMIT_SWITCH_2
 PA0.Locked=true

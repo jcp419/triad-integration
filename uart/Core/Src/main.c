@@ -171,6 +171,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
+
   main_preloop();
   /* USER CODE END 2 */
 

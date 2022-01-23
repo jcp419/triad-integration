@@ -59,6 +59,7 @@
 extern I2C_HandleTypeDef hi2c2;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart2_rx;
+extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -187,6 +188,20 @@ void I2C2_3_IRQHandler(void)
   /* USER CODE BEGIN I2C2_3_IRQn 1 */
 
   /* USER CODE END I2C2_3_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART2 + LPUART2 Interrupt.
+  */
+void USART2_LPUART2_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART2_LPUART2_IRQn 0 */
+
+  /* USER CODE END USART2_LPUART2_IRQn 0 */
+  HAL_UART_IRQHandler(&huart2);
+  /* USER CODE BEGIN USART2_LPUART2_IRQn 1 */
+
+  /* USER CODE END USART2_LPUART2_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
