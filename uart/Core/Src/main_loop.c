@@ -116,7 +116,7 @@ int main_loop(){
 	}
 	send_triad_data(triad_data, &huart2);
 
-	HAL_Delay(1000);
+	HAL_Delay(10);
 #endif
 
 	return 0;
