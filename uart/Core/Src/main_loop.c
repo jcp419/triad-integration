@@ -100,6 +100,9 @@ int main_loop(){
 	// HAL_Delay(500);
 	Channel *channel = new_channel(0, 0);
 
+	// TODO: Don't hardcode the 0 here
+	channel_select(mux, mux->channel_list[0]);
+
 	for (uint8_t i = 0; i < 3; ++i) {
 	  virtual_write(DEV_SEL, triad[i]->dev_register);
 	  for (uint8_t j = 0; j < CHANNELS; ++j) {
@@ -109,7 +112,7 @@ int main_loop(){
 		  //complicated way to print "channel {x} : {data}"
 		  sprintf((char*)buf_triad , "channel %u : %f \r\n", (unsigned int)((i*CHANNELS) + j), (float)channel->color_data);
 
-		  HAL_UART_Transmit(&huart2, buf_triad, strlen((char*)buf_triad), HAL_MAX_DELAY);
+		  HAL_UART_Transmit_IT(&huart2, buf_triad, strlen((char*)buf_triad));
 		  HAL_Delay(10);
 	  }
 	}

@@ -32,7 +32,7 @@ int main_preloop(){
 
 #ifdef MUX_ENABLE
   	i2cBus = new_smbus(&hi2c2, &huart2);
-  	i2cBus->DMA = 0;
+  	disable_DMA(i2cBus);
   	mux = new_mux(i2cBus);
 #endif
 
@@ -60,9 +60,14 @@ int main_preloop(){
 #endif
 
 #ifdef TRIAD_ENABLE
-	i2cBus = new_smbus(&hi2c2, &huart2);
 
-	disable_DMA(i2cBus);
+//	add_channel(mux, SPECTRAL_DEVICES);
+//	channel_select(mux, mux->channel_list[SPECTRAL_DEVICES]);
+
+	// TODO: Don't harcode 0 in here
+	add_channel(mux, 0);
+	channel_select(mux, mux->channel_list[0]);
+
 
 	triad[0] = new_device(0x00);
 	triad[1] = new_device(0x01);
